@@ -19,7 +19,8 @@ const currentBlockData=[
 	recipient:'otro12'
 }
 ];
-const nonce = 100;
+
+//const nonce = 100;
 
 //bitcoin.createNewBlock(2050, 'TUMAMAENTANGAXD', '499J9359F9H959455');
 
@@ -29,4 +30,6 @@ const nonce = 100;
 
 //bitcoin.hashBlock(previousBlockHash,currentBlockData,nonce);
 
-console.log(bitcoin.hashBlock(previousBlockHash,currentBlockData,nonce));
+//bitcoin.proofOfWork(previousBlockHash,currentBlockData)
+
+console.log(bitcoin);
