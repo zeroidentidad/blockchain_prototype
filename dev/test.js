@@ -8,9 +8,9 @@ const currentBlockData=[
 {amount:200,sender:'alguienmas24',recipient:'otro12'}
 ];*/
 //const nonce = 100;
-//bitcoin.createNewBlock(2050, 'TUMAMAENTANGAXD', '499J9359F9H959455');
-//bitcoin.createNewTransaction(1000,'289yio','vero93');
-//bitcoin.createNewBlock(44545, 'TUabuelaENTANGAXD', '557565656jh');
+//bitcoin.createNewBlock(2050, 'TUTTYYYYXD', '499J9359F9H959455');
+//bitcoin.createNewTransaction(1000,'289yio','eser93');
+//bitcoin.createNewBlock(44545, '6UUYUGJYHJHJNTANGYY', '557565656jh');
 //bitcoin.hashBlock(previousBlockHash,currentBlockData,nonce);
 //bitcoin.proofOfWork(previousBlockHash,currentBlockData)
 
