@@ -1,4 +1,5 @@
 const sha256= require('sha256');
+const uuid = require('uuid/v1');
 const currentNodeUrl = process.argv[3];
 
 function Blockchain() {
@@ -31,10 +32,15 @@ Blockchain.prototype.createNewTransaction = function(amount,sender,recipient){
 	const newTransaction = {
 		amount:amount,
 		sender:sender,
-		recipient:recipient
+		recipient:recipient,
+		transactionId:uuid().split('-').join('')
 	};
-	this.pendingTransactions.push(newTransaction);
-
+	/*this.pendingTransactions.push(newTransaction);
+	return this.getLastBlock()['index']+1;*/
+	return newTransaction;
+}
+Blockchain.prototype.addTransactionToPendigTransactions = function (transactionObj){
+	this.pendingTransactions.push(transactionObj);
 	return this.getLastBlock()['index']+1;
 }
 Blockchain.prototype.hashBlock = function(previousBlockHash,currentBlockData,nonce){
@@ -53,5 +59,29 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
 
 	return nonce;
 }
+Blockchain.prototype.chainIsValid = function(blockchain){
+	let validChain = true;
+
+	for (var i = 1; i < blockchain.length; i++){
+		const currentBlock = blockchain[i];
+		const prevBlock = blockchain[i-1];
+		const blockHash = this.hashBlock(prevBlock['hash'], { transactions:currentBlock['transactions'], index:currentBlock['index']}, currentBlock['nonce']);
+		if (blockHash.substring(0,4)!== '0000') validChain = false;
+		if (currentBlock['previousBlockHash']!== prevBlock['hash']) validChain=false; // cadena no valida
+
+		console.log('previousBlockHash =>', prevBlock['hash']);
+		console.log('currentBlockHash  =>', currentBlock['hash']);
+	};
+
+	const genesisBlock = blockchain[0];
+	const correctNonce = genesisBlock['nonce']===100;
+	const correctPreviousBlockHash = genesisBlock['previousBlockHash'] === '0';
+	const correctHash = genesisBlock['hash'] === '0';
+	const correctTransactions = genesisBlock['transactions'].length === 0;
+
+	if(!correctNonce||!correctPreviousBlockHash||!correctHash||!correctTransactions) validChain = false;
+
+	return validChain;
+};
 
 module.exports=Blockchain;
